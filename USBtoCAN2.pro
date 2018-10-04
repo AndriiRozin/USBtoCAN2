@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-10-04T14:44:33
+# Project created by QtCreator 2018-10-04T20:59:21
 #
 #-------------------------------------------------
 
@@ -26,10 +26,20 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    hmi.cpp \
+    hmi/hmi_info.cpp \
+    hmi/hmi_transmit.cpp \
+    hmi/hmi_monitor.cpp \
+    hmi/hmi_status.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    hmi.h \
+    hmi/hmi_info.h \
+    hmi/hmi_transmit.h \
+    hmi/hmi_monitor.h \
+    hmi/hmi_status.h
 
 FORMS += \
         mainwindow.ui

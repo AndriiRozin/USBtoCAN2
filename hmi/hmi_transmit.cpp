@@ -8,12 +8,20 @@ Hmi_transmit::Hmi_transmit(QTableWidget * table_tx)
 Hmi_transmit::~Hmi_transmit()
 {}
 
-bool Hmi_transmit::draw(QString time)
+bool Hmi_transmit::draw(QStringList str_list)
 {
-    m_table_tx->setItem(1,0,new QTableWidgetItem(time));
-    m_table_tx->setItem(1,1,new QTableWidgetItem("time"));
-    m_table_tx->setItem(1,2,new QTableWidgetItem("Error"));
-    qDebug()<<"Hmi_transmit::draw:"<<time;
+    int countRow = m_table_tx->rowCount();       //create new row
+    m_table_tx->insertRow(countRow);
+    for(int i=0; i<=12; i++){
+        m_table_tx->setItem(countRow,i,new QTableWidgetItem(str_list.at(i)));
+        m_table_tx->item(countRow,i)->setTextAlignment(Qt::AlignCenter);
+   }
+
+
+
+
+
+    qDebug()<<"Hmi_transmit::draw:ok";
     return true;
 }
 

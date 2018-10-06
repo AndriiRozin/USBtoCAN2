@@ -9,10 +9,10 @@ Hmi_status::Hmi_status(QStatusBar * status_bar)
 Hmi_status::~Hmi_status()
 {}
 
-bool Hmi_status::draw(QString time)
+bool Hmi_status::draw(QStringList str_list)
 {
-    qDebug()<<"Hmi_status::draw:"<<time;
-    m_statusBar->showMessage(time);
+    qDebug()<<"Hmi_status::draw:";
+    m_statusBar->showMessage(str_list.at(0));
     return true;
 }
 

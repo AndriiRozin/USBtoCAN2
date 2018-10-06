@@ -8,7 +8,7 @@ class Hmi_info: public Hmi
 {
 public:
     virtual bool hmi_init() override;
-    virtual bool draw(QString time) override;
+    virtual bool draw(QStringList str_list) override;
     virtual bool hmi_key() override;
 
     Hmi_info(QTableWidget * m_table_info);

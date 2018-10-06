@@ -8,12 +8,14 @@ Hmi_monitor::Hmi_monitor(QTableWidget * table_monitor)
 Hmi_monitor::~Hmi_monitor()
 {}
 
-bool Hmi_monitor::draw(QString time)
+bool Hmi_monitor::draw(QStringList str_list)
 {
-    m_table_monitor->setItem(1,0,new QTableWidgetItem(time));
-    m_table_monitor->setItem(1,1,new QTableWidgetItem("time"));
-    m_table_monitor->setItem(1,2,new QTableWidgetItem("Error"));
-    qDebug()<<"Hmi_monitor::draw:"<<time;
+    for (int i=0; i<7; i++){
+        m_table_monitor->setItem(0,i,new QTableWidgetItem(str_list.at(i)));
+        m_table_monitor->item(0,i)->setTextAlignment(Qt::AlignCenter);
+    }
+
+    qDebug()<<"Hmi_monitor::draw:ok";
     return true;
 }
 

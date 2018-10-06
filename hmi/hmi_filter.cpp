@@ -8,12 +8,14 @@ Hmi_filter::Hmi_filter(QTableWidget * table_filter)
 Hmi_filter::~Hmi_filter()
 {}
 
-bool Hmi_filter::draw(QString time)
+bool Hmi_filter::draw(QStringList str_list)
 {
-    m_table_filter->setItem(1,1,new QTableWidgetItem(time));
-    m_table_filter->setItem(1,2,new QTableWidgetItem("time"));
-    m_table_filter->setItem(1,3,new QTableWidgetItem("Error"));
-    qDebug()<<"Hmi_info::draw:"<<time;
+    for(int i=0; i<4; i++){
+        m_table_filter->setItem(0,i+1,new QTableWidgetItem(str_list.at(i)));
+        m_table_filter->item(0,i+1)->setTextAlignment(Qt::AlignCenter);
+    }
+
+    qDebug()<<"Hmi_info::draw: ok";
     return true;
 }
 

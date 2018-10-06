@@ -2,6 +2,7 @@
 #define HMI_MONITOR_H
 #include "hmi.h"
 #include <QtWidgets/QTableWidget>
+#include <QHeaderView>
 
 class Hmi_monitor: public Hmi
 {

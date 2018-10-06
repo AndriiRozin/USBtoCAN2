@@ -1,21 +1,21 @@
-#ifndef HMI_INFO_H
-#define HMI_INFO_H
+#ifndef HMI_FILTER_H
+#define HMI_FILTER_H
 #include "hmi.h"
 #include <QtWidgets/QTableWidget>
 #include <QHeaderView>
 
-class Hmi_info: public Hmi
+class Hmi_filter: public Hmi
 {
 public:
     virtual bool hmi_init() override;
     virtual bool draw(QString time) override;
     virtual bool hmi_key() override;
 
-    Hmi_info(QTableWidget * m_table_info);
-    virtual ~Hmi_info() override;
+    Hmi_filter(QTableWidget * m_table_filter);
+    virtual ~Hmi_filter() override;
 
 private:
-    QTableWidget * m_table_info;
+    QTableWidget * m_table_filter;
 };
 
-#endif // HMI_INFO_H
+#endif // HMI_FILTER_H

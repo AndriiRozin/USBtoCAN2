@@ -31,7 +31,8 @@ SOURCES += \
     hmi/hmi_info.cpp \
     hmi/hmi_transmit.cpp \
     hmi/hmi_monitor.cpp \
-    hmi/hmi_status.cpp
+    hmi/hmi_status.cpp \
+    hmi/hmi_filter.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +40,8 @@ HEADERS += \
     hmi/hmi_info.h \
     hmi/hmi_transmit.h \
     hmi/hmi_monitor.h \
-    hmi/hmi_status.h
+    hmi/hmi_status.h \
+    hmi/hmi_filter.h
 
 FORMS += \
         mainwindow.ui

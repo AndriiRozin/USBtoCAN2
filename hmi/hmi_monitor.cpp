@@ -24,5 +24,24 @@ bool Hmi_monitor::hmi_key()
 
 bool Hmi_monitor::hmi_init()
 {
+    QStringList table_Monitor;
+    table_Monitor <<"No"<<"Time (ms)"<<"State"<<"ID (hex)"<<"DLC"<<"Data (hex)"<<"ASCII";
+
+    m_table_monitor->setColumnCount(7);
+    m_table_monitor->setHorizontalHeaderLabels(table_Monitor);
+
+    m_table_monitor->horizontalHeader()->resizeSection(0,60);
+    m_table_monitor->horizontalHeader()->resizeSection(1,60);
+    m_table_monitor->horizontalHeader()->resizeSection(2,60);
+    m_table_monitor->horizontalHeader()->resizeSection(3,60);
+    m_table_monitor->horizontalHeader()->resizeSection(4,60);
+    m_table_monitor->horizontalHeader()->resizeSection(5,150);
+    m_table_monitor->horizontalHeader()->setSectionResizeMode(6,QHeaderView::Stretch);
+
+    m_table_monitor->horizontalHeader()->setStyleSheet("color: blue");
+    m_table_monitor->horizontalHeader()->setVisible(true);
+    m_table_monitor->verticalHeader()->setVisible(false);
+
+    qDebug()<<"HMI_monitor: table was created";
     return true;
 }

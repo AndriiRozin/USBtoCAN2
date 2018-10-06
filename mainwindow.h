@@ -6,7 +6,7 @@
 #include <QTableWidget>
 
 #include "hmi.h"
-#include "hmi/hmi_status.h"
+//#include "hmi/hmi_status.h"
 
 class Hmi;
 
@@ -27,6 +27,7 @@ public:
     QTableWidget * m_table_monitor;
     QTableWidget * m_table_tx;
     QTableWidget * m_table_info;
+    QTableWidget * m_table_filters;
 //    QStatusBar * m_statusBar;
 
 

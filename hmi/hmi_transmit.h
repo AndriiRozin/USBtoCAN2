@@ -2,6 +2,7 @@
 #define HMI_TRANSMIT_H
 #include "hmi.h"
 #include <QtWidgets/QTableWidget>
+#include <QHeaderView>
 
 class Hmi_transmit: public Hmi
 {

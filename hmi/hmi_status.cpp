@@ -23,7 +23,5 @@ bool Hmi_status::hmi_key()
 
 bool Hmi_status::hmi_init()
 {
-//    m_statusBar=statusBar;
-    //get m_statusBar from MainWindow
     return true;
 }

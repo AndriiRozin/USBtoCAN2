@@ -1,8 +1,8 @@
 #ifndef INP_DEVICES_H
 #define INP_DEVICES_H
+
 #include <QString>
 #include <qqueue.h>
-
 
 class Inp_Devices
 {

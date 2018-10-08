@@ -1,5 +1,6 @@
 #ifndef INP_SERIAL_H
 #define INP_SERIAL_H
+
 #include "inp_devices.h"
 #include "configure_input.h"
 #include <QSerialPort>
@@ -42,4 +43,5 @@ private:
 private:
     QStatusBar * m_statusLable;
 };
+
 #endif // INP_SERIAL_H

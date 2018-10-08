@@ -27,7 +27,8 @@ bool Hmi_filter::hmi_key()
 bool Hmi_filter::hmi_init()
 {
     QStringList tableFilter;
-    tableFilter <<"No"<<"ID1"<<"ID2"<<"ID3"<<"ID4";
+    tableFilter <<"Filter"<<"ID1H"<<"ID1L"<<"ID2H"<<"ID2L"<<"Result";
+            //<<"No"<<"ID1"<<"ID2"<<"ID3"<<"ID4";
 
     m_table_filter->setColumnCount(6);
     m_table_filter->setHorizontalHeaderLabels(tableFilter);

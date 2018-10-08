@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui widgets serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -32,7 +32,16 @@ SOURCES += \
     hmi/hmi_transmit.cpp \
     hmi/hmi_monitor.cpp \
     hmi/hmi_status.cpp \
-    hmi/hmi_filter.cpp
+    hmi/hmi_filter.cpp \
+    process_message/process_info.cpp \
+    process_message/process_error.cpp \
+    process_message/process_tx.cpp \
+    process_message/process_monitor.cpp \
+    process_message.cpp \
+    inp_devices.cpp \
+    inp_devices/inp_file.cpp \
+    inp_devices/inp_serial.cpp \
+    config.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,12 +50,25 @@ HEADERS += \
     hmi/hmi_transmit.h \
     hmi/hmi_monitor.h \
     hmi/hmi_status.h \
-    hmi/hmi_filter.h
+    hmi/hmi_filter.h \
+    process_message/process_info.h \
+    process_message/process_error.h \
+    process_message/process_tx.h \
+    process_message/process_monitor.h \
+    process_message.h \
+    inp_devices.h \
+    inp_devices/inp_file.h \
+    inp_devices/inp_serial.h \
+    config.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    config.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resourse.qrc

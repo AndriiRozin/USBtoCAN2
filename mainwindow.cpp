@@ -7,9 +7,13 @@
 #include "hmi/hmi_monitor.h"
 #include "hmi/hmi_status.h"
 #include "hmi/hmi_filter.h"
+
+#include "config.h"
+
+#include<QDebug>
 #include <QStatusBar>
 #include <QTableWidget>
-
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent) ,
@@ -50,4 +54,90 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    Config dlg;
+    dlg.exec();
+    qDebug()<<"end config";
+
+     QSettings  settings("USBtoCAN.ini",QSettings::IniFormat) ;
+     settings.beginGroup("InputDevice");
+     int port=settings.value("Port").toInt();
+     settings.endGroup();
+     settings.beginGroup("SerialPort");
+     QString portName=settings.value("portName").toString();
+     settings.endGroup();
+
+
+
+//     settings.beginGroup("CANbus");
+//     int baudRateCAN=settings.value("baudRate").toInt();
+//     settings.endGroup();
+//             switch (baudRateCAN){
+//         case 0:
+//             ui->label_CANspeed->setText("1M");
+//             break;
+//         case 1:
+//             ui->label_CANspeed->setText("500k");
+//             break;
+//         case 2:
+//             ui->label_CANspeed->setText("250k");
+//             break;
+
+//     }
+
+//     MainWindow::loadFilterFromFile();
+// }
+}
+
+void MainWindow::on_actionPort_triggered()
+{
+    Config dlg;
+    dlg.exec();
+    qDebug()<<"end config";
+
+     QSettings  settings("USBtoCAN.ini",QSettings::IniFormat) ;
+     settings.beginGroup("InputDevice");
+     int port=settings.value("Port").toInt();
+     settings.endGroup();
+     settings.beginGroup("SerialPort");
+     QString portName=settings.value("portName").toString();
+     settings.endGroup();
+
+
+
+//     settings.beginGroup("CANbus");
+//     int baudRateCAN=settings.value("baudRate").toInt();
+//     settings.endGroup();
+//             switch (baudRateCAN){
+//         case 0:
+//             ui->label_CANspeed->setText("1M");
+//             break;
+//         case 1:
+//             ui->label_CANspeed->setText("500k");
+//             break;
+//         case 2:
+//             ui->label_CANspeed->setText("250k");
+//             break;
+
+}
+
+void MainWindow::on_actionClear_Monitor_triggered()
+{
+    qDebug()<<"Clear Table Monitor";
+   while (ui->tableWidget_Monitor->rowCount()>0)
+   {
+       ui->tableWidget_Monitor->removeRow(0);
+   }
+}
+
+void MainWindow::on_actionCliar_Info_triggered()
+{
+     qDebug()<<"Clear Table Info";
+     while (ui->tableWidget_Info->rowCount()>0)
+     {
+         ui->tableWidget_Info->removeRow(0);
+     }
 }

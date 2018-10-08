@@ -1,4 +1,5 @@
 #include "inp_file.h"
+
 #include <QString>
 #include <QDebug>
 #include <QSettings>
@@ -154,6 +155,3 @@ QString Inp_File::write_DATA(QString data)
         return "err";
     }
 }
-
-
-

@@ -1,0 +1,37 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pictures/2832259.png</file>
+        <file>pictures/446091-200.png</file>
+        <file>pictures/4551807.png</file>
+        <file>pictures/47_-Ignition_Switch-_car_part_vehicle-64.png</file>
+        <file>pictures/5430714.png</file>
+        <file>pictures/6215821.png</file>
+        <file>pictures/7MhIbL.png</file>
+        <file>pictures/9357013.png</file>
+        <file>pictures/air-flow-_7-512.png</file>
+        <file>pictures/CANbox_11.png</file>
+        <file>pictures/clear-icon-15.png</file>
+        <file>pictures/clear-icon-29.png</file>
+        <file>pictures/Climat.png</file>
+        <file>pictures/Connect.png</file>
+        <file>pictures/Disconnect.png</file>
+        <file>pictures/Icon-notepad.svg.png</file>
+        <file>pictures/iconmonitoring.png</file>
+        <file>pictures/ignition-switch-automatic-car-open-371be3d04f406e6d-512x512.png</file>
+        <file>pictures/images.jpg</file>
+        <file>pictures/img_374502.png</file>
+        <file>pictures/key-filled.png</file>
+        <file>pictures/luxoft.png</file>
+        <file>pictures/mute.png</file>
+        <file>pictures/open_folder_close.png</file>
+        <file>pictures/save_file_disk_open_searsh_loading_clipboard_1513.png</file>
+        <file>pictures/settings-40.png</file>
+        <file>pictures/settings-icon-29.png</file>
+        <file>pictures/upload-documents-icon-43253.png</file>
+        <file>pictures/vol1.png</file>
+        <file>pictures/vol2.png</file>
+        <file>pictures/w32h321390846436left32.png</file>
+        <file>pictures/w32h321390846449right32.png</file>
+        <file>pictures/xbwgcftnhrzbipvzccav.png</file>
+    </qresource>
+</RCC>

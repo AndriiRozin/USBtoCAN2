@@ -1,4 +1,5 @@
 #include "inp_serial.h"
+
 #include <QDebug>
 #include <QtGlobal>
 #include "mainwindow.h"

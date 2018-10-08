@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget_2">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -1121,7 +1121,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1331,6 +1331,23 @@
     </item>
    </layout>
   </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionOpen"/>
+   <addaction name="actionclose"/>
+   <addaction name="separator"/>
+   <addaction name="actionPort"/>
+   <addaction name="separator"/>
+   <addaction name="actionClear_Monitor"/>
+   <addaction name="actionCliar_Info"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -1340,18 +1357,89 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuopen">
+    <property name="title">
+     <string>Port</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionclose"/>
+   </widget>
+   <widget class="QMenu" name="menuConfig">
+    <property name="title">
+     <string>Config</string>
+    </property>
+    <addaction name="actionPort"/>
+    <addaction name="actionCAN"/>
+   </widget>
+   <widget class="QMenu" name="menuMonitor">
+    <property name="title">
+     <string>Monitor</string>
+    </property>
+    <addaction name="actionClear_Monitor"/>
+    <addaction name="actionCliar_Info"/>
+   </widget>
+   <addaction name="menuopen"/>
+   <addaction name="menuConfig"/>
+   <addaction name="menuMonitor"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionclose">
+   <property name="icon">
+    <iconset resource="resourse.qrc">
+     <normaloff>:/pictures/4551807.png</normaloff>:/pictures/4551807.png</iconset>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="resourse.qrc">
+     <normaloff>:/pictures/5430714.png</normaloff>:/pictures/5430714.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionPort">
+   <property name="icon">
+    <iconset resource="resourse.qrc">
+     <normaloff>:/pictures/6215821.png</normaloff>:/pictures/6215821.png</iconset>
+   </property>
+   <property name="text">
+    <string>Input Port</string>
+   </property>
+  </action>
+  <action name="actionCAN">
+   <property name="icon">
+    <iconset resource="resourse.qrc">
+     <normaloff>:/pictures/6215821.png</normaloff>:/pictures/6215821.png</iconset>
+   </property>
+   <property name="text">
+    <string>CAN bus </string>
+   </property>
+  </action>
+  <action name="actionClear_Monitor">
+   <property name="icon">
+    <iconset resource="resourse.qrc">
+     <normaloff>:/pictures/7MhIbL.png</normaloff>:/pictures/7MhIbL.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear Monitor</string>
+   </property>
+  </action>
+  <action name="actionCliar_Info">
+   <property name="icon">
+    <iconset resource="resourse.qrc">
+     <normaloff>:/pictures/clear-icon-15.png</normaloff>:/pictures/clear-icon-15.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cliar Info</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resourse.qrc"/>
+ </resources>
  <connections/>
 </ui>

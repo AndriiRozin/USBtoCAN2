@@ -31,7 +31,4 @@ private:
     QStatusBar * m_statusLable;
 };
 
-
-
-
 #endif // INP_FILE_H

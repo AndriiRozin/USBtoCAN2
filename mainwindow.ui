@@ -16,6 +16,13 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
+     <widget class="QPushButton" name="pushButton_ReadPort">
+      <property name="text">
+       <string>Read Port</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QTabWidget" name="tabWidget_2">
       <property name="currentIndex">
        <number>1</number>
@@ -1338,8 +1345,8 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionOpen"/>
-   <addaction name="actionclose"/>
+   <addaction name="actionOpenPort"/>
+   <addaction name="actionClosePort"/>
    <addaction name="separator"/>
    <addaction name="actionPort"/>
    <addaction name="separator"/>
@@ -1361,8 +1368,8 @@
     <property name="title">
      <string>Port</string>
     </property>
-    <addaction name="actionOpen"/>
-    <addaction name="actionclose"/>
+    <addaction name="actionOpenPort"/>
+    <addaction name="actionClosePort"/>
    </widget>
    <widget class="QMenu" name="menuConfig">
     <property name="title">
@@ -1382,22 +1389,22 @@
    <addaction name="menuConfig"/>
    <addaction name="menuMonitor"/>
   </widget>
-  <action name="actionclose">
+  <action name="actionClosePort">
    <property name="icon">
     <iconset resource="resourse.qrc">
      <normaloff>:/pictures/4551807.png</normaloff>:/pictures/4551807.png</iconset>
    </property>
    <property name="text">
-    <string>Close</string>
+    <string>Close_Port</string>
    </property>
   </action>
-  <action name="actionOpen">
+  <action name="actionOpenPort">
    <property name="icon">
     <iconset resource="resourse.qrc">
      <normaloff>:/pictures/5430714.png</normaloff>:/pictures/5430714.png</iconset>
    </property>
    <property name="text">
-    <string>Open</string>
+    <string>Open_Port</string>
    </property>
   </action>
   <action name="actionPort">

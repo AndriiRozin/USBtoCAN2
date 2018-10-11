@@ -2,7 +2,14 @@
 #include <QDebug>
 #include <QTime>
 
-Process_Info::Process_Info() {}
+#include "hmi/hmi_info.h"
+
+
+Process_Info::Process_Info(QTableWidget * table_info)
+    : m_tableInfo(table_info)
+{
+
+}
 
 Process_Info::~Process_Info(){}
 
@@ -24,6 +31,13 @@ bool Process_Info::processMesage(QString messageData)
 
     currentMessage=currentMessage.remove(infoCondition);    //clear message
     currentMessage.remove(stopCondition);
+
+    Hmi_info infoMessage(m_tableInfo);
+    infoMessage.hmi_init();
+    QStringList infoList={"06.10.2018", "13:08", "Info", "The first comment"};
+    infoMessage.draw(infoList);
+    infoMessage.draw(infoList);
+
 
 //    int countRow=m_table->rowCount();
 //    m_table->insertRow(countRow);

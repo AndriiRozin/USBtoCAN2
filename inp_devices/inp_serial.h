@@ -40,7 +40,6 @@ public:
     virtual ~Inp_Serial() override;
 
 private:
-private:
     QStatusBar * m_statusLable;
 };
 

@@ -19,6 +19,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , device(NULL)
+    , processListenerVector()
     , m_queue()
     , ui(new Ui::MainWindow)
 
@@ -26,40 +27,76 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
 
+
+
+
+
     //init HMI-tables
-    m_table_monitor= ui->tableWidget_Monitor;
-    m_table_tx = ui->tableWidget_TX;
-    m_table_info = ui->tableWidget_Info;
-    m_table_filters = ui->tableWidget_Filters;
-    m_statusBar = ui->statusBar;
+
+    infoMessageView = new Hmi_info(ui->tableWidget_Info);
+    infoMessageView->hmi_init();
+
+    monitorMessageView = new Hmi_monitor(ui->tableWidget_Monitor);
+    monitorMessageView->hmi_init();
+
+//    Hmi_transmit txMessageView(ui->tableWidget_TX);
+//    txMessageView.hmi_init();
+
+//    Hmi_filter filtersMessage(ui->tableWidget_Filters);
+//    filtersMessage.hmi_init();
+
+//    Hmi_status statusMesage(ui->statusBar);
+//    statusMesage.draw("ui->statusBar");
+
+
+    //init delegats
+
+//    messageErr = new Process_Error();
+//      messageInfo = new Process_Info(infoMessageView);
+//    messageMonitor = new Process_Monitor();
+//    messageTx = new Process_Tx();
+
+
+    //init delegats for messageProccessor
+     processListenerVector.reserve(4);
+     processListenerVector.push_back(new Process_Tx(monitorMessageView));
+     processListenerVector.push_back(new Process_rx(monitorMessageView));
+     processListenerVector.push_back(new Process_Info(infoMessageView));
+     processListenerVector.push_back(new Process_Error(infoMessageView));
+//     processListenerVector.push_back(new Process_FilterCAN(& infoMessageView));
+
+//    QStringList infoList={"06.10.2018", "13:08", "Info", "The first comment"};
+//    infoMessageView.draw(infoList);
+//    infoList.clear();
+//    infoList<<"06.10.2018"<<"13:09"<<"Info"<<"The second comment";
+//    infoMessageView.draw(infoList);
+
 
 
     //test HMI
-    Hmi_status statusMesage(m_statusBar);
-    QStringList statusList={"My First statusBar is ready"};
-    statusMesage.draw(statusList);
+//    Hmi_status statusMesage(ui->statusBar);
+//    QStringList statusList={"My First statusBar is ready"};
+//    statusMesage.draw(statusList);
 
-    Hmi_info infoMessage(m_table_info);
-    infoMessage.hmi_init();
-    QStringList infoList={"06.10.2018", "13:08", "Info", "The first comment"};
-    infoMessage.draw(infoList);
-    infoMessage.draw(infoList);
 
-    Hmi_monitor monitorMessage(m_table_monitor);
-    monitorMessage.hmi_init();
-    QStringList monitorList={"1", "13.086", "TX", "2fd", "8","01 02 03 04 05 06 07 08","test ASCII"};
-    monitorMessage.draw(monitorList);
 
-    Hmi_transmit transmitMessage(m_table_tx);
-    transmitMessage.hmi_init();
-    QStringList txList={"1", "1ad", "0", "8", "01", "02","03","04","05","06","07","08","Test TX message"};
-    transmitMessage.draw(txList);
-    transmitMessage.draw(txList);
 
-    Hmi_filter filtersMessage(m_table_filters);
-    filtersMessage.hmi_init();
-    QStringList filterList={"1aa", "1bb", "1cc", "1dd"};
-    filtersMessage.draw(filterList);
+
+//    Hmi_monitor monitorMessage(m_table_monitor);
+//    monitorMessage.hmi_init();
+//    QStringList monitorList={"1", "13.086", "TX", "2fd", "8","01 02 03 04 05 06 07 08","test ASCII"};
+//    monitorMessage.draw(monitorList);
+
+//    Hmi_transmit transmitMessage(m_table_tx);
+//    transmitMessage.hmi_init();
+////    QStringList txList={"1ad", "0", "8", "01", "02","03","04","05","06","07","08","Test TX message"};
+////    transmitMessage.draw(txList);
+////    transmitMessage.draw(txList);
+
+//    Hmi_filter filtersMessage(m_table_filters);
+//    filtersMessage.hmi_init();
+//    QStringList filterList={"1aa", "1bb", "1cc", "1dd"};
+//    filtersMessage.draw(filterList);
 }
 
 MainWindow::~MainWindow()

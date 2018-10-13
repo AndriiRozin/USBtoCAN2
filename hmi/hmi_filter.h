@@ -15,7 +15,30 @@ public:
     virtual ~Hmi_filter() override;
 
 private:
+    struct SFilter{
+            QString data1;
+            QString data2;
+            QString data3;
+            QString data4;
+            QString configMessage;
+            bool status;
+        } mFilter;
+
+    struct SCANfilter{
+         SFilter filter[14];
+         int mode;
+         int scale;
+         int fifo;
+         int baudRate;
+
+     } filterCAN;
+
+
+    void loadFilterFromFile();
+
     QTableWidget * m_table_filter;
+
+
 };
 
 #endif // HMI_FILTER_H

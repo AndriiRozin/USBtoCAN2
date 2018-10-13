@@ -6,7 +6,9 @@ Hmi_info::Hmi_info(QTableWidget * table_info)
 {}
 
 Hmi_info::~Hmi_info()
-{}
+{
+
+}
 
 bool Hmi_info::draw(QStringList str_list)
 {
@@ -15,8 +17,9 @@ bool Hmi_info::draw(QStringList str_list)
     for(int i=0; i<4; i++){
         m_table_info->setItem(countRow,i,new QTableWidgetItem(str_list.at(i)));
         m_table_info->item(countRow,i)->setTextAlignment(Qt::AlignCenter);
-    }
 
+    }
+    m_table_info->scrollToBottom();
     qDebug()<<"Hmi_info::draw:ok";
     return true;
 }
@@ -42,6 +45,8 @@ bool Hmi_info::hmi_init()
     m_table_info->horizontalHeader()->setStyleSheet("color: blue");
     m_table_info->horizontalHeader()->setVisible(true);
     m_table_info->verticalHeader()->setVisible(false);
+
+
 
     qDebug()<<"HMI_info: table was created";
     return true;

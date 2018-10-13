@@ -36,12 +36,13 @@ SOURCES += \
     process_message/process_info.cpp \
     process_message/process_error.cpp \
     process_message/process_tx.cpp \
-    process_message/process_monitor.cpp \
     process_message.cpp \
     inp_devices.cpp \
     inp_devices/inp_file.cpp \
     inp_devices/inp_serial.cpp \
-    config.cpp
+    config.cpp \
+    process_message/process_rx.cpp \
+    process_message/process_filter.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -54,12 +55,13 @@ HEADERS += \
     process_message/process_info.h \
     process_message/process_error.h \
     process_message/process_tx.h \
-    process_message/process_monitor.h \
     process_message.h \
     inp_devices.h \
     inp_devices/inp_file.h \
     inp_devices/inp_serial.h \
-    config.h
+    config.h \
+    process_message/process_rx.h \
+    process_message/process_filter.h
 
 FORMS += \
         mainwindow.ui \

@@ -10,10 +10,14 @@ Hmi_monitor::~Hmi_monitor()
 
 bool Hmi_monitor::draw(QStringList str_list)
 {
+    int countRow = m_table_monitor->rowCount();
+    m_table_monitor->insertRow(countRow);
     for (int i=0; i<7; i++){
-        m_table_monitor->setItem(0,i,new QTableWidgetItem(str_list.at(i)));
-        m_table_monitor->item(0,i)->setTextAlignment(Qt::AlignCenter);
+        m_table_monitor->setItem(countRow,i,new QTableWidgetItem(str_list.at(i)));
+        m_table_monitor->item(countRow,i)->setTextAlignment(Qt::AlignCenter);
     }
+
+    m_table_monitor->scrollToBottom();
 
     qDebug()<<"Hmi_monitor::draw:ok";
     return true;

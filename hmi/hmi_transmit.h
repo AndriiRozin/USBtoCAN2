@@ -17,6 +17,26 @@ public:
 private:
     QTableWidget * m_table_tx;
 
+    struct SRow{
+         QString description;
+         QString idHex;
+         QString rtr;
+         QString d0;
+         QString d1;
+         QString d2;
+         QString d3;
+         QString d4;
+         QString d5;
+         QString d6;
+         QString d7;
+     };
+
+     struct STableTX{
+         SRow tx_row[5];
+     } mTableTx;
+
+     bool readTXdataFromINI();
+     bool writeAllDatatoTXtable();
 
 };
 

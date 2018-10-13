@@ -2,13 +2,9 @@
 #include <QDebug>
 #include <QTime>
 
-#include "hmi/hmi_info.h"
-
-
-Process_Info::Process_Info(QTableWidget * table_info)
-    : m_tableInfo(table_info)
+Process_Info::Process_Info(Hmi_info * info_viewer)
+    : m_info_viewer(info_viewer)
 {
-
 }
 
 Process_Info::~Process_Info(){}
@@ -32,26 +28,8 @@ bool Process_Info::processMesage(QString messageData)
     currentMessage=currentMessage.remove(infoCondition);    //clear message
     currentMessage.remove(stopCondition);
 
-    Hmi_info infoMessage(m_tableInfo);
-    infoMessage.hmi_init();
-    QStringList infoList={"06.10.2018", "13:08", "Info", "The first comment"};
-    infoMessage.draw(infoList);
-    infoMessage.draw(infoList);
-
-
-//    int countRow=m_table->rowCount();
-//    m_table->insertRow(countRow);
-//    m_table->setItem(countRow,0,new QTableWidgetItem(date));
-//    m_table->setItem(countRow,1,new QTableWidgetItem(time));
-//    m_table->setItem(countRow,2,new QTableWidgetItem("Info"));
-//    m_table->setItem(countRow,3,new QTableWidgetItem(currentMessage));
-
-//    m_table->item(countRow,0)->setTextAlignment(Qt::AlignCenter);
-//    m_table->item(countRow,1)->setTextAlignment(Qt::AlignCenter);
-//    m_table->item(countRow,2)->setTextAlignment(Qt::AlignCenter);
-//    m_table->item(countRow,2)->setTextColor(Qt::green);
-
-//    m_table->scrollToBottom();
+    QStringList infoList={date, time, "Info", currentMessage};
+    m_info_viewer->draw(infoList);
 
     qDebug()<<"processMesage:info:"<<date<<time<<"Info"<<currentMessage;
     return true;

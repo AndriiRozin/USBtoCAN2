@@ -25,7 +25,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget_2">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -37,86 +37,6 @@
           <attribute name="verticalHeaderVisible">
            <bool>false</bool>
           </attribute>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <column>
-           <property name="text">
-            <string>New Column</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>New Column</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>New Column</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>New Column</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>New Column</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>New Column</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>New Column</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>New Column</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>New Column</string>
-           </property>
-          </column>
          </widget>
         </item>
        </layout>
@@ -1195,11 +1115,6 @@
           </column>
           <column>
            <property name="text">
-            <string>Description</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
             <string>RTR</string>
            </property>
           </column>
@@ -1245,12 +1160,7 @@
           </column>
           <column>
            <property name="text">
-            <string>Count</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Time(ms)</string>
+            <string>Description</string>
            </property>
           </column>
           <item row="0" column="0">
@@ -1263,7 +1173,7 @@
             <string/>
            </property>
           </item>
-          <item row="0" column="3">
+          <item row="0" column="2">
            <property name="text">
             <string/>
            </property>
@@ -1271,7 +1181,7 @@
             <set>AlignCenter</set>
            </property>
           </item>
-          <item row="4" column="3">
+          <item row="4" column="2">
            <property name="text">
             <string/>
            </property>

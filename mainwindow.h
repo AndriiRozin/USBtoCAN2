@@ -7,6 +7,8 @@
 #include <QQueue>
 
 #include "hmi.h"
+#include "hmi/hmi_info.h"
+#include "hmi/hmi_monitor.h"
 
 #include <QStatusBar>
 #include <QTableWidget>
@@ -16,6 +18,11 @@
 #include "inp_devices/inp_serial.h"
 
 #include "process_message.h"
+#include "process_message/process_error.h"
+#include "process_message/process_info.h"
+#include "process_message/process_rx.h"
+#include "process_message/process_tx.h"
+
 
 
 
@@ -34,14 +41,22 @@ public:
     ~MainWindow();
 
 
-    Inp_Devices* device;
-    Process_message* message;
+//    QTableWidget * m_table_monitor;
+//    QTableWidget * m_table_tx;
+//    QTableWidget * m_table_info;
+//    QTableWidget * m_table_filters;
+//    QStatusBar * m_statusBar;
 
-    QTableWidget * m_table_monitor;
-    QTableWidget * m_table_tx;
-    QTableWidget * m_table_info;
-    QTableWidget * m_table_filters;
-    QStatusBar * m_statusBar;
+    Process_Error* messageErr;
+    Process_Info* messageInfo;
+    Process_rx* messageRx;
+    Process_Tx* messageTx;
+
+    Process_message* message;
+    Inp_Devices* device;
+
+    Hmi_info * infoMessageView;
+    Hmi_monitor * monitorMessageView;
 
 
 private slots:

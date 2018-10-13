@@ -2,7 +2,8 @@
 #include <QDebug>
 #include <QTime>
 
-Process_Error::Process_Error()
+Process_Error::Process_Error(Hmi_info * info_viewer)
+    : m_info_viewer(info_viewer)
 {}
 
 Process_Error::~Process_Error()
@@ -27,22 +28,8 @@ bool Process_Error::processMesage(QString messageData)
     currentMessage=currentMessage.remove(errCondition);     //clear message
     currentMessage.remove(stopCondition);
 
-
-
-//    int countRow=m_table->rowCount();
-//    m_table->insertRow(countRow);
-//    m_table->setItem(countRow,0,new QTableWidgetItem(date));
-//    m_table->setItem(countRow,1,new QTableWidgetItem(time));
-//    m_table->setItem(countRow,2,new QTableWidgetItem("Error"));
-//    m_table->setItem(countRow,3,new QTableWidgetItem(currentMessage));
-
-//    m_table->item(countRow,0)->setTextAlignment(Qt::AlignCenter);
-//    m_table->item(countRow,1)->setTextAlignment(Qt::AlignCenter);
-//    m_table->item(countRow,2)->setTextAlignment(Qt::AlignCenter);
-//    m_table->item(countRow,2)->setTextColor(Qt::red);
-
-//    m_table->scrollToBottom();
-
+    QStringList infoList={date, time, "Err", currentMessage};
+    m_info_viewer->draw(infoList);
     qDebug()<<"processMesage:error:"<<date<<time<<currentMessage;
 
     return true;

@@ -1,16 +1,16 @@
 #ifndef PROCESS_INFO_H
 #define PROCESS_INFO_H
 #include "process_message.h"
-#include <QTableWidget>
+#include "hmi/hmi_info.h"
 
 class Process_Info: public Process_message
 {
 public:
-    Process_Info(QTableWidget * table_info);
+    Process_Info(Hmi_info * info_viewer);
     virtual bool processMesage(QString data) override;
     virtual ~Process_Info() override;
 private:
-    QTableWidget * m_tableInfo;
+    Hmi_info * m_info_viewer;
 };
 
 #endif // PROCESS_INFO_H

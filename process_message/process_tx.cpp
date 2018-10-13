@@ -1,7 +1,9 @@
 #include "process_tx.h"
 #include <QDebug>
 
-Process_Tx::Process_Tx() {}
+Process_Tx::Process_Tx(Hmi_monitor * monitor_viewer)
+    : m_monitor_viewer(monitor_viewer)
+{}
 
 Process_Tx::~Process_Tx() {}
 
@@ -74,36 +76,9 @@ bool Process_Tx::processMesage(QString messageData)
        }
 
 
-
+    QStringList monitorList = {currentNumber,currentTime,"TX",currentID,currentDLC,currentData, "ascii"};
+    m_monitor_viewer->draw(monitorList);
     qDebug()<<"processMesage:TX"<<"N="<<currentNumber<<"T="<<currentTime<<"ID="<<currentID<<"DLC="<<currentDLC<<"Data="<<currentData;
-
-//    int countRow = m_table->rowCount();       //create new row
-//    m_table->insertRow(countRow);
-//    m_table->setItem(countRow,0,new QTableWidgetItem(currentNumber));
-//    m_table->setItem(countRow,1,new QTableWidgetItem(currentTime));
-//    m_table->setItem(countRow,2,new QTableWidgetItem("Tx"));
-//    m_table->setItem(countRow,3,new QTableWidgetItem(currentID));
-//    m_table->setItem(countRow,4,new QTableWidgetItem(currentDLC));
-//    m_table->setItem(countRow,5,new QTableWidgetItem(currentData));
-//    m_table->setItem(countRow,6,new QTableWidgetItem(currentISCII));
-
-//    m_table->item(countRow,0)->setTextAlignment(Qt::AlignCenter);
-//    m_table->item(countRow,1)->setTextAlignment(Qt::AlignCenter);
-//    m_table->item(countRow,2)->setTextAlignment(Qt::AlignCenter);
-//    m_table->item(countRow,3)->setTextAlignment(Qt::AlignCenter);
-//    m_table->item(countRow,4)->setTextAlignment(Qt::AlignCenter);
-
-//    if(currentNumber=="Err"){
-//        m_table->item(countRow,0)->setTextColor(Qt::red);
-//    }
-//    if(currentTime=="Err"){
-//        m_table->item(countRow,1)->setTextColor(Qt::red);
-//    }
-//    if(currentDLC=="Err"){
-//        m_table->item(countRow,4)->setTextColor(Qt::red);
-//    }
-
-//    m_table->scrollToBottom();
 
     return true;
 }

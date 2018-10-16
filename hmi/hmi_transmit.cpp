@@ -42,8 +42,8 @@ bool Hmi_transmit::hmi_init()
 
     m_table_tx->horizontalHeader()->resizeSection(0,50);
     m_table_tx->horizontalHeader()->resizeSection(1,60);
-    m_table_tx->horizontalHeader()->resizeSection(2,60);
-    m_table_tx->horizontalHeader()->resizeSection(3,60);
+    m_table_tx->horizontalHeader()->resizeSection(2,40);
+    m_table_tx->horizontalHeader()->resizeSection(3,40);
 
     for(int i=4; i<row_count; i++ )
     {
@@ -85,6 +85,7 @@ bool Hmi_transmit::readTXdataFromINI()
         mTableTx.tx_row[i].d6 = settings.value("d6").toString();
         mTableTx.tx_row[i].d7 = settings.value("d7").toString();
         settings.endGroup();
+
         qDebug()<<"Hmi_transmit::readTXdataFromINI():"<<mTableTx.tx_row[i].description
                                                         <<mTableTx.tx_row[i].idHex
                                                         <<mTableTx.tx_row[i].rtr
@@ -104,6 +105,10 @@ bool Hmi_transmit::writeAllDatatoTXtable()
 {
     for (int i=0; i<=4; i++)
     {
+  //      m_table_tx->item(i,0)->setText(QString::number(i));
+  //      m_table_tx->item(i,0)->setIcon()
+
+
         m_table_tx->item(i,1)->setText(mTableTx.tx_row[i].idHex);
         m_table_tx->item(i,1)->setTextAlignment(Qt::AlignCenter);
 

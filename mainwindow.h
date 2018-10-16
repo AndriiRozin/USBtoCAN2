@@ -9,6 +9,8 @@
 #include "hmi.h"
 #include "hmi/hmi_info.h"
 #include "hmi/hmi_monitor.h"
+#include "hmi/hmi_transmit.h"
+#include "hmi/hmi_filter.h"
 
 #include <QStatusBar>
 #include <QTableWidget>
@@ -17,11 +19,15 @@
 #include "inp_devices/inp_file.h"
 #include "inp_devices/inp_serial.h"
 
+
 #include "process_message.h"
 #include "process_message/process_error.h"
 #include "process_message/process_info.h"
 #include "process_message/process_rx.h"
 #include "process_message/process_tx.h"
+#include "process_message/process_filter.h"
+
+#include <QTableWidget>
 
 
 
@@ -40,24 +46,12 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
-//    QTableWidget * m_table_monitor;
-//    QTableWidget * m_table_tx;
-//    QTableWidget * m_table_info;
-//    QTableWidget * m_table_filters;
-//    QStatusBar * m_statusBar;
-
-    Process_Error* messageErr;
-    Process_Info* messageInfo;
-    Process_rx* messageRx;
-    Process_Tx* messageTx;
-
-    Process_message* message;
     Inp_Devices* device;
 
     Hmi_info * infoMessageView;
     Hmi_monitor * monitorMessageView;
-
+    Hmi_transmit *  txMessageView;
+    Hmi_filter * filterMessageView;
 
 private slots:
     void on_pushButton_clicked();
@@ -73,6 +67,12 @@ private slots:
     void on_actionClosePort_triggered();
 
     void on_pushButton_ReadPort_clicked();
+
+    void on_tableWidget_TX_cellClicked(int row, int column);
+
+    void on_tableWidget_TX_cellChanged(int row, int column);
+
+    void on_tableWidget_Filters_cellChanged(int row, int column);
 
 private:
     struct SRow{
@@ -122,6 +122,11 @@ private:
 
        QVector<Process_message*> processListenerVector;
        QQueue<QString> m_queue;
+
+        void editTX_ID(QString data,int row, int column);
+        void editTX_RTR(QString data, int row, int column);
+        void editTXdata(QString data,int row,int column);
+        QString testInputData(QString hexData);
 };
 
 #endif // MAINWINDOW_H

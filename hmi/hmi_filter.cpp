@@ -11,9 +11,18 @@ Hmi_filter::~Hmi_filter()
 
 bool Hmi_filter::draw(QStringList str_list)
 {
-    for(int i=0; i<4; i++){
-        m_table_filter->setItem(0,i+1,new QTableWidgetItem(str_list.at(i)));
-        m_table_filter->item(0,i+1)->setTextAlignment(Qt::AlignCenter);
+    int countRow = m_table_filter->rowCount();
+    m_table_filter->insertRow(countRow);
+    for(int i=0; i<=4; i++){
+        m_table_filter->setItem(countRow,i,new QTableWidgetItem(str_list.at(i)));
+        m_table_filter->item(countRow,i)->setTextAlignment(Qt::AlignCenter);
+        if(str_list[5]=="true"){
+            m_table_filter->item(countRow,0)->setCheckState(Qt::Checked);
+        }
+        else{
+            m_table_filter->item(countRow,0)->setCheckState(Qt::Unchecked);
+        }
+
     }
 
     qDebug()<<"Hmi_info::draw: ok";
@@ -44,6 +53,7 @@ bool Hmi_filter::hmi_init()
     m_table_filter->horizontalHeader()->setStyleSheet("color: blue");
     m_table_filter->horizontalHeader()->setVisible(true);
 
+    Hmi_filter::loadFilterFromFile();
     qDebug()<<"HMI_filter: table was created";
     return true;
 }
@@ -62,22 +72,32 @@ void Hmi_filter::loadFilterFromFile()
     filterCAN.baudRate=settings.value("baudRate").toInt();
     settings.endGroup();
 
+    QString number;
+    QString data1;
+    QString data2;
+    QString data3;
+    QString data4;
+    QString status;
 
     for (int i=0; i<=13; i++ )
     {
         settings.beginGroup("Filter"+QString::number(i));
-        filterCAN.filter[i].data1 = settings.value("data1").toString();
-        filterCAN.filter[i].data2 = settings.value("data2").toString();
-        filterCAN.filter[i].data3 = settings.value("data3").toString();
-        filterCAN.filter[i].data4 = settings.value("data4").toString();
-        filterCAN.filter[i].status = settings.value("status").toBool();
+        number=QString::number(i);
+        data1 = settings.value("data1").toString();
+        data2 = settings.value("data2").toString();
+        data3 = settings.value("data3").toString();
+        data4 = settings.value("data4").toString();
+        status = settings.value("status").toString();
         settings.endGroup();
 
-        qDebug()<<"load filter"+QString::number(i)<<filterCAN.filter[i].data1
-                                    <<filterCAN.filter[i].data2
-                                    <<filterCAN.filter[i].data3
-                                    <<filterCAN.filter[i].data4
-                                    <<filterCAN.filter[i].status;
+
+        QStringList currentRow;
+        currentRow <<number<<data1<<data2<<data3<<data4<<status;
+        Hmi_filter::draw(currentRow);
+
+
+        qDebug()<<"Hmi_filter"<<currentRow;
+
 
     }
 }

@@ -14,17 +14,26 @@ bool Hmi_info::draw(QStringList str_list)
 {
     int countRow = m_table_info->rowCount();
     m_table_info->insertRow(countRow);
-    for(int i=0; i<4; i++){
-        m_table_info->setItem(countRow,i,new QTableWidgetItem(str_list.at(i)));
-        m_table_info->item(countRow,i)->setTextAlignment(Qt::AlignCenter);
 
-    }
+        m_table_info->setItem(countRow,0,new QTableWidgetItem(str_list.at(0)));
+        m_table_info->item(countRow,0)->setTextAlignment(Qt::AlignCenter);
+
+        m_table_info->setItem(countRow,1,new QTableWidgetItem(str_list.at(1)));
+        m_table_info->item(countRow,1)->setTextAlignment(Qt::AlignCenter);
+
+        m_table_info->setItem(countRow,2,new QTableWidgetItem(str_list.at(2)));
+        m_table_info->item(countRow,2)->setTextAlignment(Qt::AlignCenter);
+
+        m_table_info->setItem(countRow,3,new QTableWidgetItem(str_list.at(3)));
+
+
+
     m_table_info->scrollToBottom();
     qDebug()<<"Hmi_info::draw:ok";
     return true;
 }
 
-bool Hmi_info::hmi_key()
+bool Hmi_info::hmi_key(QStringList strlist)
 {
     return true;
 }

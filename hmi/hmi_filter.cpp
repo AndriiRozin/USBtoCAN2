@@ -1,6 +1,7 @@
 #include "hmi_filter.h"
 #include <QDebug>
 #include <QSettings>
+#include <QListWidget>
 
 Hmi_filter::Hmi_filter(QTableWidget * table_filter)
     : m_table_filter(table_filter)
@@ -18,6 +19,9 @@ bool Hmi_filter::draw(QStringList str_list)
         m_table_filter->item(countRow,i)->setTextAlignment(Qt::AlignCenter);
         if(str_list[5]=="true"){
             m_table_filter->item(countRow,0)->setCheckState(Qt::Checked);
+    //        m_table_filter->item(countRow,1)->setTextColor(Qt::gray);
+    //        m_table_filter->item(countRow,1)->setText()
+
         }
         else{
             m_table_filter->item(countRow,0)->setCheckState(Qt::Unchecked);
@@ -29,7 +33,7 @@ bool Hmi_filter::draw(QStringList str_list)
     return true;
 }
 
-bool Hmi_filter::hmi_key()
+bool Hmi_filter::hmi_key(QStringList strlist)
 {
     return true;
 }
@@ -54,6 +58,7 @@ bool Hmi_filter::hmi_init()
     m_table_filter->horizontalHeader()->setVisible(true);
 
     Hmi_filter::loadFilterFromFile();
+    Hmi_filter::paintData();
     qDebug()<<"HMI_filter: table was created";
     return true;
 }
@@ -100,4 +105,128 @@ void Hmi_filter::loadFilterFromFile()
 
 
     }
+}
+
+void Hmi_filter::paintData()
+{
+    int row=2;
+    int column=0;
+    bool checkState=m_table_filter->item(row,column)->checkState();
+
+
+    switch (column) {
+    case 0:
+        filterCAN.filter[row].status = checkState;
+        if(filterCAN.filter[row].status)
+        {
+            m_table_filter->item(row,1)->setTextColor(Qt::black);
+            m_table_filter->item(row,2)->setTextColor(Qt::black);
+            m_table_filter->item(row,3)->setTextColor(Qt::black);
+            m_table_filter->item(row,4)->setTextColor(Qt::black);
+//            m_table_filter->item(row,5)->setTextColor(Qt::black);
+
+        }
+        else
+        {
+            m_table_filter->item(row,1)->setTextColor(Qt::gray);
+            m_table_filter->item(row,2)->setTextColor(Qt::gray);
+            m_table_filter->item(row,3)->setTextColor(Qt::gray);
+            m_table_filter->item(row,4)->setTextColor(Qt::gray);
+//            m_table_filter->item(row,5)->setTextColor(Qt::gray);
+        }
+        break;
+    case 1:
+//        filterCAN.filter[row].data1=MainWindow::testInputData(columnData);
+//        ui->tableWidget_Filters->item(row,column)->setText(filterCAN.filter[row].data1);
+//        if(filterCAN.filter[row].status)
+//        {
+//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::black);
+
+//        }
+//        else
+//        {
+//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::gray);
+//        }
+        break;
+    case 2:
+//        filterCAN.filter[row].data2=MainWindow::testInputData(columnData);
+//        ui->tableWidget_Filters->item(row,column)->setText(filterCAN.filter[row].data2);
+//        if(filterCAN.filter[row].status)
+//        {
+//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::black);
+
+//        }
+//        else
+//        {
+//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::gray);
+//        }
+
+       break;
+    case 3:
+//        filterCAN.filter[row].data3=MainWindow::testInputData(columnData);
+//        ui->tableWidget_Filters->item(row,column)->setText(filterCAN.filter[row].data3);
+//        if(filterCAN.filter[row].status)
+//        {
+//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::black);
+
+//        }
+//        else
+//        {
+//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::gray);
+//        }
+
+        break;
+    case 4:
+//        filterCAN.filter[row].data4=MainWindow::testInputData(columnData);
+//        ui->tableWidget_Filters->item(row,column)->setText(filterCAN.filter[row].data4);
+
+
+//        if(filterCAN.filter[row].status)
+//        {
+//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::black);
+//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::black);
+
+//        }
+//        else
+//        {
+//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::gray);
+//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::gray);
+//        }
+
+        break;
+    default:
+        break;
+    }
+    qDebug()<<"Hmi_filter::paintData"<<"row:"<<row<<"column:"<<column<<"columnData:";
+
 }

@@ -12,19 +12,43 @@ bool Hmi_monitor::draw(QStringList str_list)
 {
     int countRow = m_table_monitor->rowCount();
     m_table_monitor->insertRow(countRow);
-    for (int i=0; i<7; i++){
-        m_table_monitor->setItem(countRow,i,new QTableWidgetItem(str_list.at(i)));
-        m_table_monitor->item(countRow,i)->setTextAlignment(Qt::AlignCenter);
+
+    m_table_monitor->setItem(countRow,0,new QTableWidgetItem(str_list.at(0)));
+    m_table_monitor->item(countRow,0)->setTextAlignment(Qt::AlignCenter);
+
+    m_table_monitor->setItem(countRow,1,new QTableWidgetItem(str_list.at(1)));
+    m_table_monitor->item(countRow,1)->setTextAlignment(Qt::AlignCenter);
+
+    m_table_monitor->setItem(countRow,2,new QTableWidgetItem(str_list.at(2)));
+    m_table_monitor->item(countRow,2)->setTextAlignment(Qt::AlignCenter);
+
+    m_table_monitor->setItem(countRow,3,new QTableWidgetItem(str_list.at(3)));
+    m_table_monitor->item(countRow,3)->setTextAlignment(Qt::AlignCenter);
+
+    m_table_monitor->setItem(countRow,4,new QTableWidgetItem(str_list.at(4)));
+    m_table_monitor->item(countRow,4)->setTextAlignment(Qt::AlignCenter);
+
+    m_table_monitor->setItem(countRow,5,new QTableWidgetItem(str_list.at(5)));
+
+    m_table_monitor->setItem(countRow,6,new QTableWidgetItem(str_list.at(6)));
+
+    if (monitor_down_flag){
+        m_table_monitor->scrollToBottom();
     }
-
-    m_table_monitor->scrollToBottom();
-
     qDebug()<<"Hmi_monitor::draw:ok";
     return true;
 }
 
-bool Hmi_monitor::hmi_key()
+bool Hmi_monitor::hmi_key(QStringList strlist)
 {
+    QString down_table_status=strlist.at(0);
+    if(down_table_status=="Down_true"){
+        monitor_down_flag = true;
+    }
+    else{
+        monitor_down_flag = false;
+    }
+    qDebug()<<"Hmi_monitor::hmi_key"<<down_table_status<<monitor_down_flag;
     return true;
 }
 

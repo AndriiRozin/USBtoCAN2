@@ -27,7 +27,7 @@ bool Process_rx::processMesage(QString messageData)
     bool ok;
     int temp;
     QString currentData="";
-    QString currentISCII="";
+    QString currentASCII="";
 
     currentMessage.remove(rxCondition);         //clear message
     currentMessage.remove(stopCondition);
@@ -70,17 +70,17 @@ bool Process_rx::processMesage(QString messageData)
               else if(i==9){
                   currentData="Remote Frame (DLC=0)";
                   currentDLC="0";
-                  currentISCII="";
+                  currentASCII="";
               }
               else {
                    currentData = currentData+currentMessage.mid(0,2)+" ";
                    currentMessage.remove(0,2);                    //remove currentDLC
-                   currentISCII=QString::fromLocal8Bit(QByteArray::fromHex(currentData.toLatin1()));
+                   currentASCII=QString::fromLocal8Bit(QByteArray::fromHex(currentData.toLatin1()));
               }
           }
        }
 
-    QStringList monitorList = {currentNumber,currentTime,"RX",currentID,currentDLC,currentData, "ascii"};
+    QStringList monitorList = {currentNumber,currentTime,"RX",currentID,currentDLC,currentData,currentASCII};
     m_monitor_viewer->draw(monitorList);
 
     qDebug()<<"processMesage:RX"<<"N="<<currentNumber<<"T="<<currentTime<<"ID="<<currentID<<"DLC="<<currentDLC<<"Data="<<currentData;

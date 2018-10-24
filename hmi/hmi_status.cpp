@@ -16,7 +16,7 @@ bool Hmi_status::draw(QStringList str_list)
     return true;
 }
 
-bool Hmi_status::hmi_key()
+bool Hmi_status::hmi_key(QStringList strlist)
 {
     return true;
 }

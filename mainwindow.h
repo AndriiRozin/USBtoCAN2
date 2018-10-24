@@ -28,6 +28,8 @@
 #include "process_message/process_filter.h"
 
 #include <QTableWidget>
+#include <QDialog>
+
 
 
 
@@ -53,8 +55,12 @@ public:
     Hmi_transmit *  txMessageView;
     Hmi_filter * filterMessageView;
 
+
+
 private slots:
-    void on_pushButton_clicked();
+    void updateTime();
+
+//    void on_pushButton_clicked();
 
     void on_actionPort_triggered();
 
@@ -73,6 +79,10 @@ private slots:
     void on_tableWidget_TX_cellChanged(int row, int column);
 
     void on_tableWidget_Filters_cellChanged(int row, int column);
+
+//    void on_actionDown_Monitor_triggered();
+
+    void on_actionDown_Monitor_toggled(bool arg1);
 
 private:
     struct SRow{
@@ -122,6 +132,7 @@ private:
 
        QVector<Process_message*> processListenerVector;
        QQueue<QString> m_queue;
+       QTimer *tmr;
 
         void editTX_ID(QString data,int row, int column);
         void editTX_RTR(QString data, int row, int column);

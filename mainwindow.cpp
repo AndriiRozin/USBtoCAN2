@@ -8,6 +8,10 @@
 #include <QSettings>
 #include <QMessageBox>
 
+#include <QFileDialog>
+
+
+
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -19,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 {
     ui->setupUi(this);
-
 
     //init HMI-tables
     infoMessageView = new Hmi_info(ui->tableWidget_Info);
@@ -34,16 +37,6 @@ MainWindow::MainWindow(QWidget *parent)
     filterMessageView = new Hmi_filter(ui->tableWidget_Filters);
     filterMessageView->hmi_init();
 
-//    Hmi_filter filtersMessage(ui->tableWidget_Filters);
-//    filtersMessage.hmi_init();
-
-//    Hmi_status statusMesage(ui->statusBar);
-//    statusMesage.draw("ui->statusBar");
-
-
-
-
-
     //init delegats for messageProccessor
      processListenerVector.reserve(4);
      processListenerVector.push_back(new Process_Tx(monitorMessageView));
@@ -52,31 +45,11 @@ MainWindow::MainWindow(QWidget *parent)
      processListenerVector.push_back(new Process_Error(infoMessageView));
      processListenerVector.push_back(new Process_filter(infoMessageView));
 
-
-    //test HMI
-//    Hmi_status statusMesage(ui->statusBar);
-//    QStringList statusList={"My First statusBar is ready"};
-//    statusMesage.draw(statusList);
-
-
-
-
-
-//    Hmi_monitor monitorMessage(m_table_monitor);
-//    monitorMessage.hmi_init();
-//    QStringList monitorList={"1", "13.086", "TX", "2fd", "8","01 02 03 04 05 06 07 08","test ASCII"};
-//    monitorMessage.draw(monitorList);
-
-//    Hmi_transmit transmitMessage(m_table_tx);
-//    transmitMessage.hmi_init();
-//    QStringList txList={"1ad", "0", "8", "01", "02","03","04","05","06","07","08","Test TX message"};
-//    transmitMessage.draw(txList);
-//    transmitMessage.draw(txList);
-
-//    Hmi_filter filtersMessage(m_table_filters);
-//    filtersMessage.hmi_init();
-//    QStringList filterList={"1aa", "1bb", "1cc", "1dd"};
-//    filtersMessage.draw(filterList);
+     //init Timer
+     tmr=new QTimer(this);    //
+     tmr->setInterval(200);  // 1ms
+     connect(tmr,SIGNAL(timeout()),this,SLOT(updateTime()));
+     tmr->start();
 }
 
 MainWindow::~MainWindow()
@@ -85,50 +58,77 @@ MainWindow::~MainWindow()
     delete infoMessageView;
     delete monitorMessageView;
     delete txMessageView;
-    delete  filterMessageView;
+    delete filterMessageView;
 
     if (device) {
         delete device;
     }
 
-//    delete tmr;
+    delete tmr;
 }
 
-void MainWindow::on_pushButton_clicked()
+
+void MainWindow::updateTime()
 {
-    Config dlg;
-    dlg.exec();
-    qDebug()<<"end config";
+    if(device){
+          device->read_DATA(m_queue);
 
-     QSettings  settings("USBtoCAN.ini",QSettings::IniFormat) ;
-     settings.beginGroup("InputDevice");
-     int port=settings.value("Port").toInt();
-     settings.endGroup();
-     settings.beginGroup("SerialPort");
-     QString portName=settings.value("portName").toString();
-     settings.endGroup();
+          bool processResult=false;
+          while (!m_queue.empty()){
+             QString newMessage=m_queue.dequeue();
+
+             qDebug()<<"m_queue.dequeue:" <<newMessage;
+
+                  for(QVector<Process_message*>::iterator iterator=processListenerVector.begin(); iterator != processListenerVector.end(); ++iterator){
+                      if((*iterator)->processMesage(newMessage)) {
+                      processResult=true;
+                      break;
+                      }
+                  }
+          }
+     }
+ //    else {
+ //        QMessageBox::information(this,tr("Warning"), tr("Input port not open!"));
+ //    }
 
 
-
-//     settings.beginGroup("CANbus");
-//     int baudRateCAN=settings.value("baudRate").toInt();
-//     settings.endGroup();
-//             switch (baudRateCAN){
-//         case 0:
-//             ui->label_CANspeed->setText("1M");
-//             break;
-//         case 1:
-//             ui->label_CANspeed->setText("500k");
-//             break;
-//         case 2:
-//             ui->label_CANspeed->setText("250k");
-//             break;
-
-//     }
-
-//     MainWindow::loadFilterFromFile();
-// }
 }
+
+//void MainWindow::on_pushButton_clicked()
+//{
+//    Config dlg;
+//    dlg.exec();
+//    qDebug()<<"end config";
+
+//     QSettings  settings("USBtoCAN.ini",QSettings::IniFormat) ;
+//     settings.beginGroup("InputDevice");
+//     int port=settings.value("Port").toInt();
+//     settings.endGroup();
+//     settings.beginGroup("SerialPort");
+//     QString portName=settings.value("portName").toString();
+//     settings.endGroup();
+
+
+
+////     settings.beginGroup("CANbus");
+////     int baudRateCAN=settings.value("baudRate").toInt();
+////     settings.endGroup();
+////             switch (baudRateCAN){
+////         case 0:
+////             ui->label_CANspeed->setText("1M");
+////             break;
+////         case 1:
+////             ui->label_CANspeed->setText("500k");
+////             break;
+////         case 2:
+////             ui->label_CANspeed->setText("250k");
+////             break;
+
+////     }
+
+////     MainWindow::loadFilterFromFile();
+//// }
+//}
 
 void MainWindow::on_actionPort_triggered()
 {
@@ -580,7 +580,8 @@ void MainWindow::on_tableWidget_Filters_cellChanged(int row, int column)
         filterCAN.filter[row].status = checkState;
         if(filterCAN.filter[row].status)
         {
-      //      ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::black);
+          //  qDebug()<<Qt::black;
+       //     ui->tableWidget_Filters->item(row,1)->setText("hello");        //->setTextColor(Qt::black);
       //      ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::black);
       //      ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::black);
       //      ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::black);
@@ -715,4 +716,30 @@ QString MainWindow::testInputData(QString hexData)
         }
     }
     return dataOut;
+}
+
+//void MainWindow::on_actionDown_Monitor_triggered()
+//{
+
+//}
+
+void MainWindow::on_actionDown_Monitor_toggled(bool arg1)
+{
+    QStringList monitorConfig;
+
+    monitorConfig<<"true"<<"test";
+
+
+    if(arg1){
+        monitorConfig[0]="Down_true";
+    }
+    else{
+        monitorConfig[0]="Down_false";
+    }
+
+
+
+    monitorMessageView->hmi_key(monitorConfig);
+
+    qDebug()<<"on_actionDown_Monitor_triggered"<<monitorConfig[0]<<arg1;
 }

@@ -22,7 +22,7 @@ bool Hmi_transmit::draw(QStringList str_list)
     return true;
 }
 
-bool Hmi_transmit::hmi_key()
+bool Hmi_transmit::hmi_key(QStringList strlist)
 {
 return true;
 }

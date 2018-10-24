@@ -9,7 +9,7 @@ class Hmi_filter: public Hmi
 public:
     virtual bool hmi_init() override;
     virtual bool draw(QStringList str_list) override;
-    virtual bool hmi_key() override;
+    virtual bool hmi_key(QStringList strlist) override;
 
     Hmi_filter(QTableWidget * m_table_filter);
     virtual ~Hmi_filter() override;
@@ -30,11 +30,11 @@ private:
          int scale;
          int fifo;
          int baudRate;
-
      } filterCAN;
 
 
     void loadFilterFromFile();
+    void paintData();
 
     QTableWidget * m_table_filter;
 

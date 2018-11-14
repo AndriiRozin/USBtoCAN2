@@ -13,10 +13,7 @@ public:
     virtual bool read_DATA(QQueue<QString> & queueData)=0;
     virtual QString write_DATA(QString data)=0;
 
-
-    virtual ~Inp_Devices(){};
-
-
+    virtual ~Inp_Devices(){}
 };
 
 #endif // INP_DEVICES_H

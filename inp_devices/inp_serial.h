@@ -27,7 +27,7 @@ class Inp_Serial : public Configure_Input<ConfigSerialPort>, public Inp_Devices
     virtual QString write_DATA(QString data) override;
 
 
-    QSerialPort mQSerialPort;
+    QSerialPort mSerialPort;
     struct{
         QByteArray readData;
     } serialPort;

@@ -18,8 +18,8 @@ Inp_Serial::Inp_Serial(const ConfigSerialPort& _structSerial)
 
 Inp_Serial::~Inp_Serial()
 {
-    if (mQSerialPort.isOpen()) {
-        mQSerialPort.close();
+    if (mSerialPort.isOpen()) {
+        mSerialPort.close();
     }
 }
 
@@ -36,27 +36,28 @@ bool Inp_Serial::config()
     mConfigureData.baudRate = settings.value("baudRate").toInt();
     settings.endGroup();
 
-    mQSerialPort.setPortName(mConfigureData.portName);
-    mQSerialPort.setBaudRate(mConfigureData.baudRate);
-    mQSerialPort.setDataBits(mConfigureData.dataBits);
-    mQSerialPort.setParity(mConfigureData.parity);
-    mQSerialPort.setStopBits(mConfigureData.stopBit);
-    mQSerialPort.setFlowControl(mConfigureData.flowControl);
+
+    mSerialPort.setPortName(mConfigureData.portName);
+    mSerialPort.setBaudRate(mConfigureData.baudRate);
+    mSerialPort.setDataBits(mConfigureData.dataBits);
+    mSerialPort.setParity(mConfigureData.parity);
+    mSerialPort.setStopBits(mConfigureData.stopBit);
+    mSerialPort.setFlowControl(mConfigureData.flowControl);
 
 
-    qDebug()<<"SerialPort.config.name:"<<mConfigureData.portName;
-    qDebug()<<"SerialPort.config.baudRate:"<<mConfigureData.baudRate;
-    qDebug()<<"SerialPort.config.dataBits:"<<mConfigureData.dataBits;
-    qDebug()<<"SerialPort.config.parity:"<<mConfigureData.parity;
-    qDebug()<<"SerialPort.config.stopBit:"<<mConfigureData.stopBit;
-    qDebug()<<"SerialPort.config.FlowControl:"<<mConfigureData.flowControl;
+    qDebug()<<"inp_serial::SerialPort.name:"<<mConfigureData.portName;
+    qDebug()<<"inp_serial::SerialPort.baudRate:"<<mConfigureData.baudRate;
+    qDebug()<<"inp_serial::SerialPort.dataBits:"<<mConfigureData.dataBits;
+    qDebug()<<"inp_serial::SerialPort.parity:"<<mConfigureData.parity;
+    qDebug()<<"inp_serial::SerialPort.stopBit:"<<mConfigureData.stopBit;
+    qDebug()<<"inp_serial::SerialPort.flowControl:"<<mConfigureData.flowControl;
 
     return true;
 }
 
 bool Inp_Serial::start()
 {
-    if(mQSerialPort.open(QIODevice::ReadWrite)) {
+    if(mSerialPort.open(QIODevice::ReadWrite)) {
         qDebug()<<"Serial Port.open:ok";
         m_statusLable->showMessage("Serial Port: open");
         return true;
@@ -72,9 +73,9 @@ bool Inp_Serial::start()
 
 QString Inp_Serial::write_DATA(QString data)
 {
-    if(mQSerialPort.isOpen()) {
+    if(mSerialPort.isOpen()) {
         QByteArray data_latin = data.toLatin1();
-        mQSerialPort.write(data_latin);
+        mSerialPort.write(data_latin);
         qDebug()<<"Serial Port.write: "<<data_latin;
         return data_latin;
     }
@@ -86,8 +87,8 @@ QString Inp_Serial::write_DATA(QString data)
 
 bool Inp_Serial::stop()
 {
-    if (mQSerialPort.isOpen()) {
-        mQSerialPort.close();
+    if (mSerialPort.isOpen()) {
+        mSerialPort.close();
         qDebug()<<"Serial Port.close:ok";
         m_statusLable->showMessage("Serial Port: close");
 
@@ -103,9 +104,9 @@ bool Inp_Serial::stop()
 
 bool Inp_Serial::read_DATA(QQueue<QString> & queueData)
 {
-    if(mQSerialPort.isOpen()){
+    if(mSerialPort.isOpen()){
         //mSerialPort.readData += mQSerialPort.readAll();
-        serialPort.readData += mQSerialPort.readAll();
+        serialPort.readData += mSerialPort.readAll();
         if(serialPort.readData.length()!=0){
             qDebug()<<"Serial Port.read:str "<<serialPort.readData<<serialPort.readData.length();
             Inp_Serial::parsingMessage(queueData);

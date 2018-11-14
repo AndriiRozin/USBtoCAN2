@@ -10,6 +10,7 @@ public:
     virtual bool hmi_init() override;
     virtual bool draw(QStringList str_list) override;
     virtual bool hmi_key(QStringList strlist) override;
+    virtual bool edit(QStringList strlist) override;
 
     Hmi_transmit(QTableWidget * table_tx);
     virtual ~Hmi_transmit() override;

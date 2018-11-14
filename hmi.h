@@ -10,9 +10,9 @@ public:
     virtual bool hmi_init()=0;
     virtual bool hmi_key(QStringList strlist)=0;
     virtual bool draw(QStringList strlist)=0;
+    virtual bool edit(QStringList strlist)=0;
 
-    virtual ~Hmi(){};
-
+    virtual ~Hmi(){}
 };
 
 #endif // HMI_H

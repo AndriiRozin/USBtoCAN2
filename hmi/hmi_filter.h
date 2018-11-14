@@ -10,18 +10,19 @@ public:
     virtual bool hmi_init() override;
     virtual bool draw(QStringList str_list) override;
     virtual bool hmi_key(QStringList strlist) override;
+    virtual bool edit(QStringList strlist) override;
 
     Hmi_filter(QTableWidget * m_table_filter);
     virtual ~Hmi_filter() override;
 
 private:
     struct SFilter{
-            QString data1;
-            QString data2;
-            QString data3;
-            QString data4;
-            QString configMessage;
-            bool status;
+          QString data1;
+          QString data2;
+          QString data3;
+          QString data4;
+          QString comment;
+          bool status;
         } mFilter;
 
     struct SCANfilter{
@@ -32,13 +33,10 @@ private:
          int baudRate;
      } filterCAN;
 
-
     void loadFilterFromFile();
-    void paintData();
-
+    void createNewRow(QString data1,QString data2,QString data3,QString data4,QString comment);
+    void editCurrentRow(int row,QString data1,QString data2,QString data3,QString data4);
     QTableWidget * m_table_filter;
-
-
 };
 
 #endif // HMI_FILTER_H

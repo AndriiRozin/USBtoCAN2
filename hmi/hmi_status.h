@@ -10,6 +10,7 @@ class Hmi_status: public Hmi
     virtual bool hmi_init() override;
     virtual bool draw(QStringList str_list) override;
     virtual bool hmi_key(QStringList strlist) override;
+    virtual bool edit(QStringList strlist) override;
 
     Hmi_status(QStatusBar * status_bar);
     virtual ~Hmi_status() override;

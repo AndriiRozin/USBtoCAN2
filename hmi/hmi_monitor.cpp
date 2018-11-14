@@ -8,6 +8,12 @@ Hmi_monitor::Hmi_monitor(QTableWidget * table_monitor)
 Hmi_monitor::~Hmi_monitor()
 {}
 
+bool Hmi_monitor::edit(QStringList strlist)
+{
+    qDebug()<<"Hmi_monitor::edit"<<strlist;
+    return true;
+}
+
 bool Hmi_monitor::draw(QStringList str_list)
 {
     int countRow = m_table_monitor->rowCount();

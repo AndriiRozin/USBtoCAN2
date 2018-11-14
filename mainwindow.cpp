@@ -3,23 +3,17 @@
 #include "config.h"
 
 #include<QDebug>
-#include <QStatusBar>
-#include <QTableWidget>
 #include <QSettings>
 #include <QMessageBox>
-
-#include <QFileDialog>
-
-
 
 
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , device(NULL)
+    , ui(new Ui::MainWindow)
     , processListenerVector()
     , m_queue()
-    , ui(new Ui::MainWindow)
 
 {
     ui->setupUi(this);
@@ -76,7 +70,6 @@ void MainWindow::updateTime()
           bool processResult=false;
           while (!m_queue.empty()){
              QString newMessage=m_queue.dequeue();
-
              qDebug()<<"m_queue.dequeue:" <<newMessage;
 
                   for(QVector<Process_message*>::iterator iterator=processListenerVector.begin(); iterator != processListenerVector.end(); ++iterator){
@@ -87,48 +80,9 @@ void MainWindow::updateTime()
                   }
           }
      }
- //    else {
- //        QMessageBox::information(this,tr("Warning"), tr("Input port not open!"));
- //    }
-
-
 }
 
-//void MainWindow::on_pushButton_clicked()
-//{
-//    Config dlg;
-//    dlg.exec();
-//    qDebug()<<"end config";
 
-//     QSettings  settings("USBtoCAN.ini",QSettings::IniFormat) ;
-//     settings.beginGroup("InputDevice");
-//     int port=settings.value("Port").toInt();
-//     settings.endGroup();
-//     settings.beginGroup("SerialPort");
-//     QString portName=settings.value("portName").toString();
-//     settings.endGroup();
-
-
-
-////     settings.beginGroup("CANbus");
-////     int baudRateCAN=settings.value("baudRate").toInt();
-////     settings.endGroup();
-////             switch (baudRateCAN){
-////         case 0:
-////             ui->label_CANspeed->setText("1M");
-////             break;
-////         case 1:
-////             ui->label_CANspeed->setText("500k");
-////             break;
-////         case 2:
-////             ui->label_CANspeed->setText("250k");
-////             break;
-
-////     }
-
-////     MainWindow::loadFilterFromFile();
-//// }
-//}
 
 void MainWindow::on_actionPort_triggered()
 {
@@ -244,31 +198,6 @@ void MainWindow::on_actionClosePort_triggered()
     }
 }
 
-void MainWindow::on_pushButton_ReadPort_clicked()
-{
-    qDebug()<<"on_pushButton_delegat_clicked";
-
-     if(device){
-          device->read_DATA(m_queue);
-     }
-     else {
-         QMessageBox::information(this,tr("Warning"), tr("Input port not open!"));
-     }
-
-     bool processResult=false;
-     while (!m_queue.empty()){
-        QString newMessage=m_queue.dequeue();
-
-        qDebug()<<"m_queue.dequeue:" <<newMessage;
-
-             for(QVector<Process_message*>::iterator iterator=processListenerVector.begin(); iterator != processListenerVector.end(); ++iterator){
-                 if((*iterator)->processMesage(newMessage)) {
-                 processResult=true;
-                 break;
-                 }
-             }
-     }
-}
 
 void MainWindow::on_tableWidget_TX_cellClicked(int row, int column)
 {
@@ -414,7 +343,7 @@ void MainWindow::on_tableWidget_TX_cellChanged(int row, int column)
 
        case 11:
       {
-           qDebug()<<"row="<<row<<"column2="<<column;
+           qDebug()<<"MainWindow::on_tableWidget_TX_cellChanged"<<"row="<<row<<"column2="<<column;
            break;
       }
 
@@ -478,15 +407,13 @@ void MainWindow::on_tableWidget_TX_cellChanged(int row, int column)
           break;
 
        }
-
-
 }
 
 void MainWindow::editTX_ID(QString data,int row, int column)
 {
     int len=data.length();
-    QString data_out=NULL;
-    QString temp_word=NULL;
+    QString data_out;
+    QString temp_word;
     bool ok;
 
     switch(len)
@@ -518,13 +445,14 @@ void MainWindow::editTX_ID(QString data,int row, int column)
             if(ok==false) data_out="";
             else data_out=temp_word;
         }
+        break;
     default:
         break;
     }
 
 
     data_out=data_out.toUpper();
-    qDebug()<<"data"<<data<<"data_out"<<data_out;
+    qDebug()<<"MainWindow::editTX_ID"<<"data"<<data<<"data_out"<<data_out;
     ui->tableWidget_TX->item(row,column)->setTextAlignment(Qt::AlignCenter);
     ui->tableWidget_TX->item(row,column)->setText(data_out);
     return ;
@@ -542,8 +470,8 @@ void MainWindow::editTX_RTR(QString data,int row, int column)
 void MainWindow::editTXdata(QString data,int row,int column)
 {
     int len=data.length();
-    QString temp_word=NULL;
-    QString data_out=NULL;
+    QString temp_word;
+    QString data_out;
     bool ok;
 
     switch(len)
@@ -572,125 +500,9 @@ void MainWindow::editTXdata(QString data,int row,int column)
 
 void MainWindow::on_tableWidget_Filters_cellChanged(int row, int column)
 {
-    bool checkState=ui->tableWidget_Filters->item(row,column)->checkState();
-    QString columnData=ui->tableWidget_Filters->item(row,column)->text();
-
-    switch (column) {
-    case 0:
-        filterCAN.filter[row].status = checkState;
-        if(filterCAN.filter[row].status)
-        {
-          //  qDebug()<<Qt::black;
-       //     ui->tableWidget_Filters->item(row,1)->setText("hello");        //->setTextColor(Qt::black);
-      //      ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::black);
-      //      ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::black);
-      //      ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::black);
-      //      ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::black);
-
-        }
-        else
-        {
-     //       ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::gray);
-     //       ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::gray);
-     //       ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::gray);
-     //       ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::gray);
-     //       ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::gray);
-        }
-        break;
-    case 1:
-//        filterCAN.filter[row].data1=MainWindow::testInputData(columnData);
-//        ui->tableWidget_Filters->item(row,column)->setText(filterCAN.filter[row].data1);
-//        if(filterCAN.filter[row].status)
-//        {
-//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::black);
-
-//        }
-//        else
-//        {
-//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::gray);
-//        }
-        break;
-    case 2:
-//        filterCAN.filter[row].data2=MainWindow::testInputData(columnData);
-//        ui->tableWidget_Filters->item(row,column)->setText(filterCAN.filter[row].data2);
-//        if(filterCAN.filter[row].status)
-//        {
-//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::black);
-
-//        }
-//        else
-//        {
-//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::gray);
-//        }
-
-       break;
-    case 3:
-//        filterCAN.filter[row].data3=MainWindow::testInputData(columnData);
-//        ui->tableWidget_Filters->item(row,column)->setText(filterCAN.filter[row].data3);
-//        if(filterCAN.filter[row].status)
-//        {
-//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::black);
-
-//        }
-//        else
-//        {
-//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::gray);
-//        }
-
-        break;
-    case 4:
-//        filterCAN.filter[row].data4=MainWindow::testInputData(columnData);
-//        ui->tableWidget_Filters->item(row,column)->setText(filterCAN.filter[row].data4);
-
-
-//        if(filterCAN.filter[row].status)
-//        {
-//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::black);
-//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::black);
-
-//        }
-//        else
-//        {
-//            ui->tableWidget_Filters->item(row,1)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,2)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,3)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,4)->setTextColor(Qt::gray);
-//            ui->tableWidget_Filters->item(row,5)->setTextColor(Qt::gray);
-//        }
-
-        break;
-    default:
-        break;
-    }
-    qDebug()<<"on_tableWidget_Filters_cellChanged"<<"row:"<<row<<"column:"<<column<<"columnData:"<<columnData<<checkState;
-
+    QStringList cellChenged;
+    cellChenged <<QString::number(row) <<QString::number(column);
+    filterMessageView->edit(cellChenged);
 }
 
 QString MainWindow::testInputData(QString hexData)
@@ -718,17 +530,11 @@ QString MainWindow::testInputData(QString hexData)
     return dataOut;
 }
 
-//void MainWindow::on_actionDown_Monitor_triggered()
-//{
-
-//}
 
 void MainWindow::on_actionDown_Monitor_toggled(bool arg1)
 {
     QStringList monitorConfig;
-
     monitorConfig<<"true"<<"test";
-
 
     if(arg1){
         monitorConfig[0]="Down_true";
@@ -737,9 +543,6 @@ void MainWindow::on_actionDown_Monitor_toggled(bool arg1)
         monitorConfig[0]="Down_false";
     }
 
-
-
     monitorMessageView->hmi_key(monitorConfig);
-
     qDebug()<<"on_actionDown_Monitor_triggered"<<monitorConfig[0]<<arg1;
 }

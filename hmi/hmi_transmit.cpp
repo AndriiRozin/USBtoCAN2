@@ -9,6 +9,12 @@ Hmi_transmit::Hmi_transmit(QTableWidget * table_tx)
 Hmi_transmit::~Hmi_transmit()
 {}
 
+bool Hmi_transmit::edit(QStringList strlist)
+{
+    qDebug()<<"Hmi_transmit::edit"<<strlist;
+    return true;
+}
+
 bool Hmi_transmit::draw(QStringList str_list)
 {
     int countRow = m_table_tx->rowCount();       //create new row

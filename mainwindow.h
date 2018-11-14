@@ -2,9 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QSerialPort>
 #include <QTimer>
 #include <QQueue>
+//#include <QStatusBar>
+//#include <QTableWidget>
+//#include <QDialog>
+
 
 #include "hmi.h"
 #include "hmi/hmi_info.h"
@@ -12,13 +15,9 @@
 #include "hmi/hmi_transmit.h"
 #include "hmi/hmi_filter.h"
 
-#include <QStatusBar>
-#include <QTableWidget>
-
 #include "inp_devices.h"
 #include "inp_devices/inp_file.h"
 #include "inp_devices/inp_serial.h"
-
 
 #include "process_message.h"
 #include "process_message/process_error.h"
@@ -26,12 +25,6 @@
 #include "process_message/process_rx.h"
 #include "process_message/process_tx.h"
 #include "process_message/process_filter.h"
-
-#include <QTableWidget>
-#include <QDialog>
-
-
-
 
 
 class Hmi;
@@ -60,8 +53,6 @@ public:
 private slots:
     void updateTime();
 
-//    void on_pushButton_clicked();
-
     void on_actionPort_triggered();
 
     void on_actionClear_Monitor_triggered();
@@ -72,15 +63,11 @@ private slots:
 
     void on_actionClosePort_triggered();
 
-    void on_pushButton_ReadPort_clicked();
-
     void on_tableWidget_TX_cellClicked(int row, int column);
 
     void on_tableWidget_TX_cellChanged(int row, int column);
 
     void on_tableWidget_Filters_cellChanged(int row, int column);
-
-//    void on_actionDown_Monitor_triggered();
 
     void on_actionDown_Monitor_toggled(bool arg1);
 

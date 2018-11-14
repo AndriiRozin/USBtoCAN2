@@ -9,6 +9,13 @@ Hmi_status::Hmi_status(QStatusBar * status_bar)
 Hmi_status::~Hmi_status()
 {}
 
+
+bool Hmi_status::edit(QStringList strlist)
+{
+    qDebug()<<"Hmi_status::edit"<<strlist;
+    return true;
+}
+
 bool Hmi_status::draw(QStringList str_list)
 {
     qDebug()<<"Hmi_status::draw:";

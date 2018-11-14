@@ -10,6 +10,14 @@ Hmi_info::~Hmi_info()
 
 }
 
+
+bool Hmi_info::edit(QStringList strlist)
+{
+    qDebug()<<"Hmi_info::edit"<<strlist;
+    return true;
+}
+
+
 bool Hmi_info::draw(QStringList str_list)
 {
     int countRow = m_table_info->rowCount();

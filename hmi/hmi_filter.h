@@ -34,8 +34,8 @@ private:
      } filterCAN;
 
     void loadFilterFromFile();
-    void createNewRow(QString data1,QString data2,QString data3,QString data4,QString comment);
-    void editCurrentRow(int row,QString data1,QString data2,QString data3,QString data4);
+    void createNewRow();
+    void editCurrentRow(int row);
     QTableWidget * m_table_filter;
 };
 

@@ -544,5 +544,13 @@ void MainWindow::on_actionDown_Monitor_toggled(bool arg1)
     }
 
     monitorMessageView->hmi_key(monitorConfig);
-    qDebug()<<"on_actionDown_Monitor_triggered"<<monitorConfig[0]<<arg1;
+    qDebug()<<"MainWindow::on_actionDown_Monitor_triggered"<<monitorConfig[0]<<arg1;
+}
+
+void MainWindow::on_pushButton_SaveFilters_clicked()
+{
+    QStringList command;
+    command<<"save";
+    filterMessageView->hmi_key(command);
+    qDebug()<<"MainWindow::on_pushButton_SaveFilters_clicked()";
 }

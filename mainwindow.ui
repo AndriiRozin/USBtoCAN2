@@ -46,6 +46,13 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_7">
               <item>
+               <widget class="QPushButton" name="pushButton_SaveFilters">
+                <property name="text">
+                 <string>Save</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="pushButton">
                 <property name="text">
                  <string>Send </string>

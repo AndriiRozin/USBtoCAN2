@@ -71,6 +71,8 @@ private slots:
 
     void on_actionDown_Monitor_toggled(bool arg1);
 
+    void on_pushButton_SaveFilters_clicked();
+
 private:
     struct SRow{
          QString description;

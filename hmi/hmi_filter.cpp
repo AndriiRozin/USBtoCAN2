@@ -34,22 +34,6 @@ bool Hmi_filter::draw(QStringList str_list)
         Hmi_filter::editCurrentRow(row);
     }
 
-//    if(filterCAN.filter[row].status){
-//        m_table_filter->item(row,0)->setCheckState(Qt::Checked);
-//        m_table_filter->item(row,1)->setTextColor(Qt::black);
-//        m_table_filter->item(row,2)->setTextColor(Qt::black);
-//        m_table_filter->item(row,3)->setTextColor(Qt::black);
-//        m_table_filter->item(row,4)->setTextColor(Qt::black);
-//        m_table_filter->item(row,5)->setTextColor(Qt::black);
-//        }
-//    else{
-//        m_table_filter->item(row,0)->setCheckState(Qt::Unchecked);
-//        m_table_filter->item(row,1)->setTextColor(Qt::gray);
-//        m_table_filter->item(row,2)->setTextColor(Qt::gray);
-//        m_table_filter->item(row,3)->setTextColor(Qt::gray);
-//        m_table_filter->item(row,4)->setTextColor(Qt::gray);
-//        m_table_filter->item(row,5)->setTextColor(Qt::gray);
-//    }
     qDebug()<<"Hmi_info::draw: ok";
     return true;
 }
@@ -58,7 +42,16 @@ void Hmi_filter::createNewRow()
 {
     int row = m_table_filter->rowCount();   //counter of new row
     m_table_filter->insertRow(row);
+
     m_table_filter->setItem(row,0,new QTableWidgetItem(QString::number(row)));
+    if(filterCAN.filter[row].status){
+        m_table_filter->item(row,0)->setCheckState(Qt::Checked);
+    }
+    else{
+        m_table_filter->item(row,0)->setCheckState(Qt::Unchecked);
+    }
+
+
     m_table_filter->setItem(row,1,new QTableWidgetItem(filterCAN.filter[row].data1));
     m_table_filter->setItem(row,2,new QTableWidgetItem(filterCAN.filter[row].data2));
     m_table_filter->setItem(row,3,new QTableWidgetItem(filterCAN.filter[row].data3));
@@ -71,8 +64,12 @@ void Hmi_filter::createNewRow()
     m_table_filter->item(row,3)->setTextAlignment(Qt::AlignCenter);
     m_table_filter->item(row,4)->setTextAlignment(Qt::AlignCenter);
 
+    Hmi_filter::colorRow(row);
+}
+
+void Hmi_filter::colorRow(int row)
+{
     if(filterCAN.filter[row].status){
-        m_table_filter->item(row,0)->setCheckState(Qt::Checked);
         m_table_filter->item(row,1)->setTextColor(Qt::black);
         m_table_filter->item(row,2)->setTextColor(Qt::black);
         m_table_filter->item(row,3)->setTextColor(Qt::black);
@@ -80,7 +77,6 @@ void Hmi_filter::createNewRow()
         m_table_filter->item(row,5)->setTextColor(Qt::black);
     }
     else {
-        m_table_filter->item(row,0)->setCheckState(Qt::Unchecked);
         m_table_filter->item(row,1)->setTextColor(Qt::gray);
         m_table_filter->item(row,2)->setTextColor(Qt::gray);
         m_table_filter->item(row,3)->setTextColor(Qt::gray);
@@ -88,6 +84,7 @@ void Hmi_filter::createNewRow()
         m_table_filter->item(row,5)->setTextColor(Qt::gray);
     }
 }
+
 
 void Hmi_filter::editCurrentRow(int row)
 {
@@ -98,24 +95,7 @@ void Hmi_filter::editCurrentRow(int row)
     m_table_filter->item(row,4)->setText(filterCAN.filter[row].data4);
     m_table_filter->item(row,5)->setText(filterCAN.filter[row].comment);
 
-    if(filterCAN.filter[row].status){
-        m_table_filter->item(row,0)->setCheckState(Qt::Checked);
-        m_table_filter->item(row,1)->setTextColor(Qt::black);
-        m_table_filter->item(row,2)->setTextColor(Qt::black);
-        m_table_filter->item(row,3)->setTextColor(Qt::black);
-        m_table_filter->item(row,4)->setTextColor(Qt::black);
-        m_table_filter->item(row,5)->setTextColor(Qt::black);
-    }
-    else {
-        m_table_filter->item(row,0)->setCheckState(Qt::Unchecked);
-        m_table_filter->item(row,1)->setTextColor(Qt::gray);
-        m_table_filter->item(row,2)->setTextColor(Qt::gray);
-        m_table_filter->item(row,3)->setTextColor(Qt::gray);
-        m_table_filter->item(row,4)->setTextColor(Qt::gray);
-        m_table_filter->item(row,5)->setTextColor(Qt::gray);
-    }
-
-
+    Hmi_filter::colorRow(row);
     return;
 }
 
@@ -146,6 +126,7 @@ bool Hmi_filter::hmi_key(QStringList command)
 
 bool Hmi_filter::hmi_init()
 {
+    initFlag=true;
     QStringList tableFilter;
     tableFilter <<"Filter"<<"ID1H"<<"ID1L"<<"ID2H"<<"ID2L"<<"Comment";
             //<<"No"<<"ID1"<<"ID2"<<"ID3"<<"ID4";
@@ -165,6 +146,7 @@ bool Hmi_filter::hmi_init()
 
     Hmi_filter::loadFilterFromFile();
     qDebug()<<"HMI_filter: table was created";
+    initFlag=false;
     return true;
 }
 
@@ -211,44 +193,43 @@ void Hmi_filter::loadFilterFromFile()  //to table
 
 
 bool Hmi_filter::edit(QStringList str_list)
-    //write edit_data to structure and to file
+    //write edit_data to structure after INITmode(initFlag)
 {
-//    int row = str_list.at(0).toInt();
-//    int column = str_list.at(1).toInt();
-//    QString iniFileGroup = "Filter"+QString::number(row);
+   if(!initFlag) {
+    int row = str_list.at(0).toInt();
+    int column = str_list.at(1).toInt();
+    QString iniFileGroup = "Filter"+QString::number(row);
 
-//    filterCAN.filter[row].status=m_table_filter->item(row,0)->checkState();
-
-//    QSettings  settings("USBtoCAN.ini",QSettings::IniFormat) ;
-
-//    switch (column)
-//    {
-//     case 0:
-//        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"status="<<filterCAN.filter[row].status;
-//        break;
-//    case 1:
-//        filterCAN.filter[row].data1 = m_table_filter->item(row,column)->text();
-//        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"data1="<<filterCAN.filter[row].data1;
-//        break;
-//    case 2:
-//        filterCAN.filter[row].data2 = m_table_filter->item(row,column)->text();
-//        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"data2="<<filterCAN.filter[row].data2;
-//        break;
-//    case 3:
-//        filterCAN.filter[row].data3 = m_table_filter->item(row,column)->text();
-//        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"data3="<<filterCAN.filter[row].data3;
-//        break;
-//    case 4:
-//        filterCAN.filter[row].data4 = m_table_filter->item(row,column)->text();
-//        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"data4="<<filterCAN.filter[row].data4;
-//        break;
-//    case 5:
-//        filterCAN.filter[row].comment = m_table_filter->item(row,column)->text();
-//        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"comment="<<filterCAN.filter[row].comment;
-//        break;
-
-//    default:
-//        break;
-//    }
+    switch (column)
+    {
+    case 0:
+        filterCAN.filter[row].status=m_table_filter->item(row,0)->checkState();
+        Hmi_filter::colorRow(row);
+        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"status="<<filterCAN.filter[row].status;
+        break;
+    case 1:
+        filterCAN.filter[row].data1 = m_table_filter->item(row,column)->text();
+        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"data1="<<filterCAN.filter[row].data1;
+        break;
+    case 2:
+        filterCAN.filter[row].data2 = m_table_filter->item(row,column)->text();
+        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"data2="<<filterCAN.filter[row].data2;
+        break;
+    case 3:
+        filterCAN.filter[row].data3 = m_table_filter->item(row,column)->text();
+        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"data3="<<filterCAN.filter[row].data3;
+        break;
+    case 4:
+        filterCAN.filter[row].data4 = m_table_filter->item(row,column)->text();
+        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"data4="<<filterCAN.filter[row].data4;
+        break;
+    case 5:
+        filterCAN.filter[row].comment = m_table_filter->item(row,column)->text();
+        qDebug()<<"Hmi_filter::edit"<<iniFileGroup<<"comment="<<filterCAN.filter[row].comment;
+        break;
+    default:
+        break;
+    }
+}
    return true;
 }

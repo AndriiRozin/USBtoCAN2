@@ -16,6 +16,7 @@ public:
     virtual ~Hmi_filter() override;
 
 private:
+    bool initFlag;    //=true if init mode is active
     struct SFilter{
           QString data1;
           QString data2;
@@ -36,6 +37,7 @@ private:
     void loadFilterFromFile();
     void createNewRow();
     void editCurrentRow(int row);
+    void colorRow(int row);
     QTableWidget * m_table_filter;
 };
 
